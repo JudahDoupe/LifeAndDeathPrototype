@@ -1,0 +1,12 @@
+version: '3.8'
+
+name: life-and-death
+
+services:
+  prototype:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    container_name: prototype

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles/style.css">
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="scripts/cards.js"></script>
+        <script src="scripts/decks.js"></script>
+        <script src="scripts/board.js"></script>
+        <script src="scripts/hand.js"></script>
+        <script src="scripts/app.js"></script>
+        <title>Game Board</title>
+    </head>
+    <body>
+        <div class="map">
+            <div id="board" class="row">
+                <div id="tier-1" class="row tier"> <!-- Row for Tier 1 -->
+                    <!-- Tier 1 tiles will be dynamically added here -->
+                </div>
+                <div id="tier-2" class="row tier"> <!-- Row for Tier 2 -->
+                    <!-- Tier 2 tiles will be dynamically added here -->
+                </div>
+                <div id="tier-3" class="row tier"> <!-- Row for Tier 3 -->
+                    <!-- Tier 3 tiles will be dynamically added here -->
+                </div>
+            </div>
+            
+            <div id="decks" class="row">
+                <div id="life-deck" class="deck-card" deck="life">
+                    <span id="life-deck-count">0</span>
+                </div>
+                <div id="death-deck" class="deck-card" deck="death">
+                    <span id="death-deck-count">0</span>
+                </div>
+            </div>
+            
+            <div id="hand" class="row">
+                <!-- Hand tiles will be dynamically added here -->
+            </div>
+        </div>
+    </body>
+</html>

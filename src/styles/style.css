@@ -1,0 +1,142 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #003366;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.card {
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    width: 10vmin;
+    height: 10vmin;
+    background-color: lightgray;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px;
+    font-size: 2vmin;
+    user-select: none;
+    transition: transform 0.2s ease-in-out; /* Smooth animation for scaling */
+}
+
+.card[deck="life"] {
+    background-color: #568203;
+    color: #f8f8ff;
+    font-weight: bold;
+    border: 3px solid #6B8E23;
+}
+
+.card[deck="death"] {
+    background-color: #000000;
+    color: #f8f8ff;
+    font-weight: bold;
+    border: 3px solid #333333;
+}
+
+.card.disabled {
+    color: #555555;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.map {
+    position: relative;
+    height: 80%;
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 25px;
+    background-color: #8B4513;
+}
+
+#hand {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 0;
+}
+
+#hand .card:hover {
+    transform: scale(1.1); /* Slightly enlarge the card on hover */
+}
+
+#decks {
+    position: absolute;
+    bottom: 100px; /* Adjusted to float above the hand */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    justify-content: space-between; /* Spread contents as far apart as possible */
+    width: 100%; /* Ensure the container spans the full width */
+    padding: 20px; /* Add some padding for aesthetics */
+    user-select: none;
+}
+
+#life-deck {
+    margin-right: auto;
+    margin-left: 25px;
+}
+
+#death-deck {
+    margin-left: auto;
+    margin-right: 25px;
+}
+
+#board {
+    display: flex;
+    flex-direction: column;
+}
+
+.tier {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.deck-card {
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    width: 10vmin;
+    height: 10vmin;
+    background-color: #444;
+    color: #fff;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2vmin;
+    font-weight: bold;
+    position: relative;
+}
+
+.deck-card[deck="life"] {
+    background-color: #568203;
+    border: 3px solid #6B8E23;
+}
+
+.deck-card[deck="death"] {
+    background-color: #000000;
+    border: 3px solid #333333;
+}
+
+.deck-card span {
+    position: absolute;
+    bottom: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, 50%);
+    font-size: 4vmin; /* Make the text as large as possible */
+    font-weight: bold;
+    text-align: center;
+}

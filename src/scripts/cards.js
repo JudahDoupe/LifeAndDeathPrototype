@@ -1,0 +1,26 @@
+const CARDS = {
+    life: [
+        { name: 'Sand', requirements: [], tier: 1 },
+        { name: 'Clay', requirements: [], tier: 1 },
+        { name: 'Wheat', requirements: ['Sand'], tier: 2 },
+        { name: 'Turnips', requirements: ['Sand'], tier: 2 },
+        { name: 'Tomatoes', requirements: ['Clay'], tier: 2 },
+        { name: 'Pumpkins', requirements: ['Clay'], tier: 2 },
+        { name: 'Deer', requirements: ['Wheat', 'Turnips'], tier: 3 },
+        { name: 'Bear', requirements: ['Tomatoes', 'Pumpkins'], tier: 3 },
+        { name: 'Rabbit', requirements: ['Wheat', 'Pumpkins'], tier: 3 },
+        { name: 'Butterflies', requirements: ['Tomatoes', 'Turnips'], tier: 3 },
+    ],
+    death: [
+        { name: 'Rain', removes: ['Sand'], protectedBy: [], tier: 1 },   
+        { name: 'Sun', removes: ['Clay'], protectedBy: [], tier: 1 },
+        { name: 'Storm', removes: ['Sand', 'Wheat'], protectedBy: ['Wheat'], tier: 2 },
+        { name: 'Snow', removes: ['Clay', 'Pumpkins'], protectedBy: ['Deer'], tier: 2 },
+        { name: 'Wind', removes: ['Sand', 'Turnips'], protectedBy: ['Rabbit'], tier: 2 },
+        { name: 'Frost', removes: ['Clay', 'Tomatoes'], protectedBy: ['Butterflies'], tier: 3 },
+        { name: 'Flood', removes: ['Sand', 'Clay', 'Wheat'], protectedBy: ['Turnips'], tier: 3 },
+        { name: 'Blizzard', removes: ['Clay', 'Tomatoes', 'Turnips'], protectedBy: ['Bear'], tier: 3 },
+        { name: 'Fire', removes: ['Clay', 'Rabbit', 'Wheat', 'Pumpkins'], protectedBy: ['Deer', 'Bear'], tier: 3 },
+        { name: 'Ice', removes: ['Sand', 'Tomatoes', 'Turnips'], protectedBy: ['Bear'], tier: 3 },
+    ],
+};
