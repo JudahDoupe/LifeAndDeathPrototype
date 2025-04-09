@@ -1,0 +1,21 @@
+{
+  "name": "lifeanddeathprototype",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "watch": "tsc -w"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jquery": "^3.5.32",
+    "typescript": "^5.8.3",
+    "vite": "^5.0.0"
+  }
+}

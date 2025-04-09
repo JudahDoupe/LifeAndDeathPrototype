@@ -1,11 +1,15 @@
-# Use the official Nginx image as the base image
+FROM node:16-alpine as builder
+
+WORKDIR /app
+COPY package*.json ./
+COPY tsconfig.json ./
+COPY vite.config.js ./
+RUN npm install
+
+COPY src ./src
+RUN npm run build
+
 FROM nginx:alpine
-
-# Copy the website files to the Nginx HTML directory
-COPY src /usr/share/nginx/html
-
-# Expose port 80 to serve the website
+COPY --from=builder /app/dist /usr/share/nginx/html
 EXPOSE 80
-
-# Start Nginx server
 CMD ["nginx", "-g", "daemon off;"]

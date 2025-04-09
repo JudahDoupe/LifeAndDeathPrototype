@@ -1,4 +1,6 @@
-const CARDS = {
+import { Cards } from './types';
+
+export const CARDS: Cards = {
     life: [
         { name: 'Sand', requirements: [] },
         { name: 'Clay', requirements: [] },
