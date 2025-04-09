@@ -26,7 +26,7 @@ body {
     padding: 0 10px;
     font-size: 2vmin;
     user-select: none;
-    transition: transform 0.2s ease-in-out; /* Smooth animation for scaling */
+    transition: transform 0.2s ease-in-out;
 }
 
 .card[deck="life"] {
@@ -69,19 +69,19 @@ body {
 }
 
 #hand .card:hover {
-    transform: scale(1.1); /* Slightly enlarge the card on hover */
+    transform: scale(1.1);
 }
 
 #decks {
     position: absolute;
-    bottom: 100px; /* Adjusted to float above the hand */
+    bottom: 100px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     gap: 10px;
-    justify-content: space-between; /* Spread contents as far apart as possible */
-    width: 100%; /* Ensure the container spans the full width */
-    padding: 20px; /* Add some padding for aesthetics */
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px;
     user-select: none;
 }
 
@@ -95,15 +95,32 @@ body {
     margin-right: 25px;
 }
 
-#board {
-    display: flex;
-    flex-direction: column;
+.board-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
-.tier {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.card-stack {
+    position: relative;
+    width: 10vmin;
+    min-height: 10vmin;
+    margin: 0 auto;
+    border: 2px dashed rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+}
+
+.card-stack .card {
+    position: absolute;
+    left: 0;
+    transition: transform 0.3s ease-in-out;
+}
+
+.card-stack .card:not(:last-child) {
+    transform: translateY(-5px);
 }
 
 .deck-card {
@@ -133,10 +150,10 @@ body {
 
 .deck-card span {
     position: absolute;
-    bottom: 50%; /* Center vertically */
-    left: 50%; /* Center horizontally */
+    bottom: 50%;
+    left: 50%;
     transform: translate(-50%, 50%);
-    font-size: 4vmin; /* Make the text as large as possible */
+    font-size: 4vmin;
     font-weight: bold;
     text-align: center;
 }
