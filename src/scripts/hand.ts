@@ -2,18 +2,18 @@ import { Constants, DeckType } from './types';
 import { Decks } from './decks';
 import { Board } from './board';
 import { CARDS } from './cards';
-import { TileFactory } from './app';
+import { CardFactory, HandUI } from './ui/UIManager';
 
 export const Hand = {
     init(): void {
-        $('#hand').empty();
+        HandUI.clearHand();
         Decks.draw(Constants.LIFE_DECK);
         Decks.draw(Constants.LIFE_DECK);
         Decks.draw(Constants.LIFE_DECK);
     },
 
     addCard(name: string, deck: DeckType): void {
-        const card = TileFactory.create(name, deck)
+        const card = CardFactory.create(name, deck)
             .on('click', function() {
                 if (deck === Constants.LIFE_DECK && !Board.canPlayCard(name)) {
                     return;
@@ -21,7 +21,7 @@ export const Hand = {
                 Board.playCard(name, deck);
                 const oppositeDeck = deck === Constants.LIFE_DECK ? Constants.DEATH_DECK : Constants.LIFE_DECK;
                 Decks.draw(oppositeDeck);
-                $(this).remove();
+                HandUI.removeCard(this);
                 Hand.updateHandVisualization();
             })
             .on('mouseenter', function() {
@@ -37,17 +37,11 @@ export const Hand = {
             .on('mouseleave', function() {
                 $('#board').find('.disabled').removeClass('disabled');
             });
-        $('#hand').append(card);
+        HandUI.addCard(card);
         this.updateHandVisualization();
     },
 
     updateHandVisualization(): void {
-        $('#hand').children().each(function() {
-            const cardName = $(this).attr('name');
-            const deck = $(this).attr('deck') as DeckType;
-            // Only check playability for life cards
-            const isPlayable = deck === Constants.LIFE_DECK ? Board.canPlayCard(cardName!) : true;
-            $(this).toggleClass('disabled', !isPlayable);
-        });
+        HandUI.updatePlayability((cardName: string, deck: DeckType) => Board.canPlayCard(cardName));
     }
 };

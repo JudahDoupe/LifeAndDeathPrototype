@@ -1,3 +1,14 @@
+:root {
+    --card-width: 10vmin;
+    --card-height: 10vmin;
+    --card-radius: 25px;
+    --life-color: #568203;
+    --life-border: #6B8E23;
+    --death-color: #000000;
+    --death-border: #333333;
+    --font-base: 'Arial', 'Helvetica', sans-serif;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -14,33 +25,36 @@ body {
     gap: 10px;
 }
 
-.card {
-    font-family: 'Arial', 'Helvetica', sans-serif;
-    width: 10vmin;
-    height: 10vmin;
-    background-color: lightgray;
-    border-radius: 25px;
+/* Base card styles */
+.card, .deck-card {
+    font-family: var(--font-base);
+    width: var(--card-width);
+    height: var(--card-height);
+    border-radius: var(--card-radius);
     display: flex;
     justify-content: center;
     align-items: center;
+    font-weight: bold;
+    color: #f8f8ff;
+}
+
+.card {
+    background-color: lightgray;
     padding: 0 10px;
     font-size: 2vmin;
     user-select: none;
     transition: transform 0.2s ease-in-out;
 }
 
-.card[deck="life"] {
-    background-color: #568203;
-    color: #f8f8ff;
-    font-weight: bold;
-    border: 3px solid #6B8E23;
+/* Shared deck-specific styles */
+[deck="life"] {
+    background-color: var(--life-color);
+    border: 3px solid var(--life-border);
 }
 
-.card[deck="death"] {
-    background-color: #000000;
-    color: #f8f8ff;
-    font-weight: bold;
-    border: 3px solid #333333;
+[deck="death"] {
+    background-color: var(--death-color);
+    border: 3px solid var(--death-border);
 }
 
 .card.disabled {
@@ -105,9 +119,9 @@ body {
 }
 
 .card-stack {
+    width: var(--card-width);
+    min-height: var(--card-height);
     position: relative;
-    width: 10vmin;
-    min-height: 10vmin;
     margin: 0 auto;
     border: 2px dashed rgba(255, 255, 255, 0.1);
     border-radius: 25px;
@@ -124,28 +138,8 @@ body {
 }
 
 .deck-card {
-    font-family: 'Arial', 'Helvetica', sans-serif;
-    width: 10vmin;
-    height: 10vmin;
-    background-color: #444;
-    color: #fff;
-    border-radius: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-size: 2vmin;
-    font-weight: bold;
     position: relative;
-}
-
-.deck-card[deck="life"] {
-    background-color: #568203;
-    border: 3px solid #6B8E23;
-}
-
-.deck-card[deck="death"] {
-    background-color: #000000;
-    border: 3px solid #333333;
 }
 
 .deck-card span {

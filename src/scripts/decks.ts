@@ -1,6 +1,7 @@
 import { Constants, DeckType, LifeCard, DeathCard } from './types';
 import { CARDS } from './cards';
 import { Hand } from './hand';
+import { DecksUI } from './ui/UIManager';
 
 export const Decks = {
     init(): void {
@@ -49,6 +50,6 @@ export const Decks = {
     updateDeckCount(deck: DeckType): void {
         const deckElement = $(`#${deck}-deck`);
         const cards = deckElement.data('cards') || [];
-        $(`#${deck}-deck-count`).text(cards.length);
+        DecksUI.updateDeckCount(deck, cards.length);
     },
 };
