@@ -1,5 +1,23 @@
-import { Cards } from './types';
+export type LifeCard = {
+    /** The name of the card */
+    name: string;
+    /** Names of cards that must be present before this card can be played */
+    requirements: string[];
+};
 
+export type DeathCard = {
+    /** The name of the card */
+    name: string;
+    /** Names of cards that this card removes when played */
+    removes: string[];
+};
+
+export type Cards = {
+    life: LifeCard[];
+    death: DeathCard[];
+};
+
+/** The available card collections in the game */
 export const CARDS: Cards = {
     life: [
         { name: 'Sand', requirements: [] },
