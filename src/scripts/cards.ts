@@ -1,46 +1,44 @@
-export type LifeCard = {
-    /** The name of the card */
+import { DeckType } from './types/game.types';
+
+export interface CardData {
     name: string;
-    /** Names of cards that must be present before this card can be played */
+    deck: DeckType;
+}
+export interface LifeCard extends CardData {
     requirements: string[];
-};
-
-export type DeathCard = {
-    /** The name of the card */
-    name: string;
-    /** Names of cards that this card removes when played */
+}
+export interface DeathCard extends CardData {
     removes: string[];
-};
+}
 
-export type Cards = {
+export type AllCards = {
     life: LifeCard[];
     death: DeathCard[];
 };
 
-/** The available card collections in the game */
-export const CARDS: Cards = {
+export const ALLCARDS: AllCards = {
     life: [
-        { name: 'Sand', requirements: [] },
-        { name: 'Clay', requirements: [] },
-        { name: 'Wheat', requirements: ['Sand'] },
-        { name: 'Turnips', requirements: ['Sand'] },
-        { name: 'Tomatoes', requirements: ['Clay'] },
-        { name: 'Pumpkins', requirements: ['Clay'] },
-        { name: 'Deer', requirements: ['Wheat'] },
-        { name: 'Bear', requirements: ['Pumpkins'] },
-        { name: 'Rabbit', requirements: ['Wheat'] },
-        { name: 'Butterflies', requirements: ['Tomatoes'] },
+        { name: 'Sand', requirements: [], deck: DeckType.LIFE },
+        { name: 'Clay', requirements: [], deck: DeckType.LIFE },
+        { name: 'Wheat', requirements: ['Sand'], deck: DeckType.LIFE },
+        { name: 'Turnips', requirements: ['Sand'], deck: DeckType.LIFE },
+        { name: 'Tomatoes', requirements: ['Clay'], deck: DeckType.LIFE },
+        { name: 'Pumpkins', requirements: ['Clay'], deck: DeckType.LIFE },
+        { name: 'Deer', requirements: ['Wheat'], deck: DeckType.LIFE },
+        { name: 'Bear', requirements: ['Pumpkins'], deck: DeckType.LIFE },
+        { name: 'Rabbit', requirements: ['Wheat'], deck: DeckType.LIFE },
+        { name: 'Butterflies', requirements: ['Tomatoes'], deck: DeckType.LIFE },
     ],
     death: [
-        { name: 'Rain', removes: ['Sand'] },   
-        { name: 'Sun', removes: ['Clay'] },
-        { name: 'Storm', removes: ['Sand', 'Wheat'] },
-        { name: 'Snow', removes: ['Clay', 'Pumpkins'] },
-        { name: 'Wind', removes: ['Sand', 'Turnips'] },
-        { name: 'Frost', removes: ['Clay', 'Tomatoes'] },
-        { name: 'Flood', removes: ['Sand', 'Deer', 'Wheat'] },
-        { name: 'Blizzard', removes: ['Sand', 'Tomatoes', 'Turnips'] },
-        { name: 'Fire', removes: ['Clay', 'Rabbit', 'Wheat', 'Pumpkins', 'Butterflies'] },
-        { name: 'Ice', removes: ['Clay', 'Tomatoes', 'Turnips'] },
+        { name: 'Rain', removes: ['Sand'], deck: DeckType.DEATH },   
+        { name: 'Sun', removes: ['Clay'], deck: DeckType.DEATH },
+        { name: 'Storm', removes: ['Sand', 'Wheat'], deck: DeckType.DEATH },
+        { name: 'Snow', removes: ['Clay', 'Pumpkins'], deck: DeckType.DEATH },
+        { name: 'Wind', removes: ['Sand', 'Turnips'], deck: DeckType.DEATH },
+        { name: 'Frost', removes: ['Clay', 'Tomatoes'], deck: DeckType.DEATH },
+        { name: 'Flood', removes: ['Sand', 'Deer', 'Wheat'], deck: DeckType.DEATH },
+        { name: 'Blizzard', removes: ['Sand', 'Tomatoes', 'Turnips'], deck: DeckType.DEATH },
+        { name: 'Fire', removes: ['Clay', 'Rabbit', 'Wheat', 'Pumpkins', 'Butterflies'], deck: DeckType.DEATH },
+        { name: 'Ice', removes: ['Clay', 'Tomatoes', 'Turnips'], deck: DeckType.DEATH },
     ],
 };

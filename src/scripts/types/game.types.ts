@@ -1,24 +1,20 @@
-import { LifeCard, DeathCard } from '../cards';
+import { LifeCard, DeathCard, CardData } from '../cards';
 
-/** The type of deck a card belongs to */
-export type DeckType = 'life' | 'death';
+export enum DeckType {
+    LIFE = 'life',
+    DEATH = 'death'
+}
 
 /** Game-specific constants */
 export const Constants = {
-    LIFE_DECK: 'life' as DeckType,
-    DEATH_DECK: 'death' as DeckType
+    LIFE_DECK: DeckType.LIFE,
+    DEATH_DECK: DeckType.DEATH
 } as const;
-
-/** Represents a card in play */
-export interface PlayedCard {
-    name: string;
-    deck: DeckType;
-}
 
 /** The complete game state */
 export interface GameState {
-    board: Array<Array<PlayedCard>>;
-    hand: Array<PlayedCard>;
+    board: Array<Array<CardData>>;
+    hand: Array<CardData>;
     decks: {
         life: LifeCard[];
         death: DeathCard[];

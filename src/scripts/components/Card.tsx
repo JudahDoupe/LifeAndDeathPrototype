@@ -1,28 +1,27 @@
 import React from 'react';
-import { DeckType } from '../types/game.types';
+import { CardData as CardData } from '../cards';
 
 interface CardProps {
-  name: string;
-  deck: DeckType;
+  card: CardData;
   onClick?: () => void;
   disabled?: boolean;
-  className?: string;
+  style?: React.CSSProperties;
 }
 
 const Card: React.FC<CardProps> = ({ 
-  name, 
-  deck, 
+  card,
   onClick, 
   disabled = false,
-  className = ''
+  style
 }) => {
   return (
     <div
-      className={`card ${disabled ? 'disabled' : ''} ${className}`}
+      className={`card ${disabled ? 'disabled' : ''}`}
       onClick={disabled ? undefined : onClick}
-      data-deck={deck}
+      data-deck={card.deck}
+      style={style}
     >
-      {name}
+      {card.name}
     </div>
   );
 };

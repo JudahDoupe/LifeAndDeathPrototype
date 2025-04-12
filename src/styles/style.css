@@ -170,17 +170,6 @@ body {
     transition: transform 0.3s ease-in-out;
 }
 
-.card-stack .card:not(:last-child) {
-    transform: translateY(-5px);
-}
-
-.card.stacked {
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translateY(-5px);
-}
-
 .deck-card {
     font-size: 2vmin;
     position: relative;

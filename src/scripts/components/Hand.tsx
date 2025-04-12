@@ -1,10 +1,10 @@
 import React from 'react';
-import { DeckType, PlayedCard } from '../types/game.types';
+import { CardData } from '../cards';
 import Card from './Card';
 
 interface HandProps {
-  cards: PlayedCard[];
-  onPlayCard: (cardName: string, deck: DeckType) => void;
+  cards: CardData[];
+  onPlayCard: (card: CardData) => void;
 }
 
 const Hand: React.FC<HandProps> = ({ cards, onPlayCard }) => {
@@ -13,9 +13,8 @@ const Hand: React.FC<HandProps> = ({ cards, onPlayCard }) => {
       {cards.map((card, index) => (
         <Card
           key={`${card.name}-${index}`}
-          name={card.name}
-          deck={card.deck}
-          onClick={() => onPlayCard(card.name, card.deck)}
+          card={card}
+          onClick={() => onPlayCard(card)}
         />
       ))}
     </div>

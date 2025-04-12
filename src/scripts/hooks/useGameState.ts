@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { CARDS } from '../cards';
-import { GameState } from '../types/game.types';
+import { ALLCARDS } from '../cards';
+import { GameState, DeckType } from '../types/game.types';
 import { shuffleArray } from '../utils/array';
 
 export function useGameState() {
@@ -8,8 +8,8 @@ export function useGameState() {
     board: [],
     hand: [],
     decks: {
-      life: [...CARDS.life],
-      death: [...CARDS.death]
+      life: [...ALLCARDS.life],
+      death: [...ALLCARDS.death]
     }
   });
 
@@ -18,17 +18,17 @@ export function useGameState() {
   }, []);
 
   const initializeGame = () => {
-    const shuffledLife = shuffleArray([...CARDS.life]);
+    const shuffledLife = shuffleArray([...ALLCARDS.life]);
     setGameState({
       board: Array(12).fill([]),
       hand: [
-        { name: shuffledLife[0].name, deck: 'life' },
-        { name: shuffledLife[1].name, deck: 'life' },
-        { name: shuffledLife[2].name, deck: 'life' }
+        { name: shuffledLife[0].name, deck: DeckType.LIFE },
+        { name: shuffledLife[1].name, deck: DeckType.LIFE },
+        { name: shuffledLife[2].name, deck: DeckType.LIFE }
       ],
       decks: {
         life: shuffledLife.slice(3),
-        death: [...CARDS.death]
+        death: [...ALLCARDS.death]
       }
     });
   };

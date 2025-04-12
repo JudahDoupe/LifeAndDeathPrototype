@@ -1,21 +1,27 @@
 import React from 'react';
-import { PlayedCard } from '../types/game.types';
-import Card from './Card';
+import { CardData } from '../cards';
+import CardComponent from './Card';
 
 interface CardStackProps {
-  cards: PlayedCard[];
-  onClick?: () => void;
+  cards: CardData[];
 }
 
-const CardStack: React.FC<CardStackProps> = ({ cards, onClick }) => {
+const CardStack: React.FC<CardStackProps> = ({ cards }) => {
+  const cardStackPxOffset = 5;
+
   return (
-    <div className="card-stack" onClick={onClick}>
+    <div className="card-stack">
       {cards.map((card, index) => (
-        <Card
+        <CardComponent
           key={`${card.name}-${index}`}
-          name={card.name}
-          deck={card.deck}
-          className={index !== cards.length - 1 ? 'stacked' : ''}
+          card={card}
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            transform: `translateY(-${index * cardStackPxOffset}px)`,
+            zIndex: index
+          }}
         />
       ))}
     </div>

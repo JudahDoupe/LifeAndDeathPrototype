@@ -11,10 +11,7 @@ const App: React.FC = () => {
     <div className="game-container">
       <div className="game-layout">
         <div className="game-row board-row">
-          <Board 
-            board={gameState.board}
-            onPlayCard={(cardName, stackIndex) => playCard(cardName, 'life', stackIndex)}
-          />
+          <Board board={gameState.board} />
         </div>
         <div className="game-row decks-row">
           <Decks decks={gameState.decks} />

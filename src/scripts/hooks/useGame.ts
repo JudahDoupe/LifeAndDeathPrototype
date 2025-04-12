@@ -3,6 +3,7 @@ import { useGameState } from './useGameState';
 import { useLifeCards } from './useLifeCards';
 import { useDeathCards } from './useDeathCards';
 import { shuffleArray } from '../utils/array';
+import { ALLCARDS, CardData, DeathCard } from '../cards';
 
 export function useGame() {
   const { gameState, setGameState } = useGameState();
@@ -24,21 +25,24 @@ export function useGame() {
     }));
   };
 
-  const playCard = (cardName: string, cardDeck: DeckType, stackIndex?: number) => {
-    if (cardDeck === 'life' && stackIndex !== undefined) {
+  const playCard = (card: CardData, stackIndex?: number) => {
+    if (card.deck === DeckType.LIFE && stackIndex !== undefined) {
       playLifeCard(
-        cardName,
+        card.name,
         stackIndex,
         gameState,
         setGameState,
-        () => drawCard('death')
+        () => drawCard(DeckType.DEATH)
       );
-    } else if (cardDeck === 'death') {
+    } else if (card.deck === DeckType.DEATH) {
+      const deathCard = ALLCARDS.death.find((c: DeathCard) => c.name === card.name);
+      if (!deathCard) return;
+      
       playDeathCard(
-        cardName,
+        deathCard,
         gameState,
         setGameState,
-        () => drawCard('life')
+        () => drawCard(DeckType.LIFE)
       );
     }
   };
