@@ -10,7 +10,8 @@ export function useGameState() {
     decks: {
       life: [...ALLCARDS.life],
       death: [...ALLCARDS.death]
-    }
+    },
+    chosenCard: null
   });
 
   useEffect(() => {
@@ -29,7 +30,8 @@ export function useGameState() {
       decks: {
         life: shuffledLife.slice(3),
         death: [...ALLCARDS.death]
-      }
+      },
+      chosenCard: null
     });
   };
 

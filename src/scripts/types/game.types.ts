@@ -19,4 +19,5 @@ export interface GameState {
         life: LifeCard[];
         death: DeathCard[];
     };
+    chosenCard: CardData | null;
 }

@@ -4,17 +4,19 @@ import PlayableCard from './PlayableCard';
 
 interface HandProps {
   cards: CardData[];
-  onPlayCard: (card: CardData) => void;
+  onCardSelect: (card: CardData) => void;
+  chosenCard: CardData | null;
 }
 
-const Hand: React.FC<HandProps> = ({ cards, onPlayCard }) => {
+const Hand: React.FC<HandProps> = ({ cards, onCardSelect, chosenCard }) => {
   return (
     <div className="hand">
       {cards.map((card, index) => (
         <PlayableCard
           key={`${card.name}-${index}`}
           card={card}
-          onPlay={() => onPlayCard(card)}
+          onPlay={() => onCardSelect(card)}
+          isChosen={chosenCard?.name === card.name}
         />
       ))}
     </div>

@@ -6,6 +6,7 @@ export default defineConfig({
   root: 'src',
   build: {
     outDir: '../dist',
-    emptyOutDir: true
+    emptyOutDir: true,
+    sourcemap: true // Enable source maps
   }
 });

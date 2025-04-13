@@ -89,6 +89,11 @@ body {
     transition: transform 0.2s ease-in-out;
 }
 
+.card.chosen {
+    transform: scale(1.2);
+    z-index: 1000;
+}
+
 /* Shared deck-specific styles */
 [data-deck="life"] {
     background-color: var(--life-color);
@@ -163,6 +168,16 @@ body {
     border-radius: 25px;
 }
 
+.card-stack.playable {
+    border: 2px solid var(--life-color);
+    cursor: pointer;
+}
+
+.card-stack.not-playable {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .card-stack .card {
     position: absolute;
     left: 0;
@@ -183,6 +198,25 @@ body {
     font-size: 4vmin;
     font-weight: bold;
     text-align: center;
+}
+
+.discard-pile {
+    width: var(--card-width);
+    height: var(--card-height);
+    border-radius: var(--card-radius);
+    background-color: #444;
+    margin: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: transform 0.2s ease-in-out;
+}
+
+.discard-pile.active {
+    border: 2px solid var(--death-color);
+    cursor: pointer;
+    transform: scale(1.1);
 }
 
 .hand {

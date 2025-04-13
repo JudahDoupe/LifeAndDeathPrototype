@@ -1,29 +1,30 @@
 import React from 'react';
 import { CardData } from '../../cards';
-import BaseCard from '../BaseCard';
 
-interface BoardCardProps {
+interface PlayedCardProps {
   card: CardData;
-  stackIndex: number;
-  stackOffset?: number;
+  indexInStack: number;
 }
 
-const PlayedCard: React.FC<BoardCardProps> = ({ 
+const PlayedCard: React.FC<PlayedCardProps> = ({ 
   card, 
-  stackIndex, 
-  stackOffset = 5 
+  indexInStack
 }) => {
+  const stackOffset = 5; 
   return (
-    <BaseCard
-      card={card}
+    <div
+      className="card"
+      data-deck={card.deck}
       style={{
         position: 'absolute',
         top: 0,
         left: 0,
-        transform: `translateY(-${stackIndex * stackOffset}px)`,
-        zIndex: stackIndex
+        transform: `translateY(${indexInStack * stackOffset}px)`,
+        zIndex: indexInStack
       }}
-    />
+    >
+      {card.name}
+    </div>
   );
 };
 
