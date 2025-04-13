@@ -1,18 +1,18 @@
 import React from 'react';
-import { CardData as CardData } from '../cards';
+import { CardData } from '../cards';
 
-interface CardProps {
+interface BaseCardProps {
   card: CardData;
   onClick?: () => void;
   disabled?: boolean;
   style?: React.CSSProperties;
 }
 
-const Card: React.FC<CardProps> = ({ 
+const BaseCard: React.FC<BaseCardProps> = ({ 
   card,
   onClick, 
   disabled = false,
-  style
+  style = {},
 }) => {
   return (
     <div
@@ -26,4 +26,4 @@ const Card: React.FC<CardProps> = ({
   );
 };
 
-export default Card;
+export default BaseCard;

@@ -1,7 +1,7 @@
 import React from 'react';
-import Board from './Board';
-import Hand from './Hand';
-import Decks from './Decks';
+import Board from './board/Board';
+import Hand from './ui/Hand';
+import Decks from './ui/Decks';
 import { useGame } from '../hooks/useGame';
 
 const App: React.FC = () => {

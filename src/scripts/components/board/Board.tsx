@@ -1,5 +1,5 @@
 import React from 'react';
-import { CardData } from '../cards';
+import { CardData } from '../../cards';
 import CardStack from './CardStack';
 
 interface BoardProps {

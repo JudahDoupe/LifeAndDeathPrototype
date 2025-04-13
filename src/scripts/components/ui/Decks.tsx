@@ -1,5 +1,5 @@
 import React from 'react';
-import { LifeCard, DeathCard } from '../cards';
+import { LifeCard, DeathCard } from '../../cards';
 
 interface DecksProps {
   decks: {

@@ -1,6 +1,6 @@
 import React from 'react';
-import { CardData } from '../cards';
-import Card from './Card';
+import { CardData } from '../../cards';
+import PlayableCard from './PlayableCard';
 
 interface HandProps {
   cards: CardData[];
@@ -9,12 +9,12 @@ interface HandProps {
 
 const Hand: React.FC<HandProps> = ({ cards, onPlayCard }) => {
   return (
-    <div id="hand">
+    <div className="hand">
       {cards.map((card, index) => (
-        <Card
+        <PlayableCard
           key={`${card.name}-${index}`}
           card={card}
-          onClick={() => onPlayCard(card)}
+          onPlay={() => onPlayCard(card)}
         />
       ))}
     </div>
