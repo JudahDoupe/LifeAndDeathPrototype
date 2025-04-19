@@ -8,6 +8,9 @@ export function useDeathCards() {
     onStateChange: (newState: GameState) => void,
     onCardPlayed: () => void
   ): void => {
+    const chosenCard = gameState.chosenCard;
+    if (!chosenCard) return;
+
     onStateChange({
       ...gameState,
       board: gameState.board.map(stack => {
@@ -17,7 +20,8 @@ export function useDeathCards() {
           ? stack.slice(0, -1)  // Remove only the top card if it matches
           : stack;              // Keep stack unchanged if top card doesn't match
       }),
-      hand: gameState.hand.filter(c => c.name !== card.name)
+      hand: gameState.hand.filter(c => c.id !== chosenCard.id),
+      chosenCard: null
     });
 
     onCardPlayed();

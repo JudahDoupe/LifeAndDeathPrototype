@@ -3,10 +3,13 @@ import { DeckType } from './types/game.types';
 export interface CardData {
     name: string;
     deck: DeckType;
+    id?: string;
 }
+
 export interface LifeCard extends CardData {
     requirements: string[];
 }
+
 export interface DeathCard extends CardData {
     removes: string[];
 }

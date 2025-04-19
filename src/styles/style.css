@@ -1,12 +1,23 @@
 :root {
-    --card-width: 10vmin;
-    --card-height: 10vmin;
-    --card-radius: 25px;
-    --life-color: #568203;
-    --life-border: #6B8E23;
-    --death-color: #000000;
-    --death-border: #333333;
+    --card-height: 15vmin;
+    --card-width: 11vmin;
+    --card-radius: var(--border-radius);
     --font-base: 'Arial', 'Helvetica', sans-serif;
+
+    /* Card Colors */
+    --life-card-bg: #20804C;
+    --life-card-text: #F6F0DA;
+    --death-card-bg: #2E2E2E;
+    --death-card-text: #F6F0DA;
+
+    /* Board and Background */
+    --board-bg: #D5671D;
+    --page-bg: #D6C29A;
+
+    /* Shadows and Accents */
+    --card-shadow: rgba(0, 0, 0, 0.2);
+    --border-radius: 1.5vmin;
+    --card-padding: 1rem;
 }
 
 #root{
@@ -15,10 +26,11 @@
 
 body {
     margin: 0;
-    background-color: #003366;
+    background-color: var(--page-bg);
     height: 100vh;
     width: 100vw;
     overflow: hidden;
+    touch-action: none;  /* Prevent browser zoom gestures */
 }
 
 .game-container {
@@ -27,6 +39,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    touch-action: none;  /* Prevent browser zoom gestures */
 }
 
 .game-layout {
@@ -34,56 +47,63 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
-    padding: 20px;
     box-sizing: border-box;
-}
-
-.game-row {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
+    position: relative;
 }
 
 .board-row {
-    flex: 0 0 auto;
     min-height: 0;
-    margin-bottom: auto;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bottom-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--board-bg);
+    opacity: 0.95;
+    z-index: 100;
+    box-shadow: 0 0 1vmin var(--card-shadow);
 }
 
 .decks-row {
-    flex: 0 0 auto;
-    background-color: rgba(0, 0, 0, 0.2);
+    padding: var(--card-padding);
 }
 
 .hand-row {
-    flex: 0 0 auto;
-    background-color: rgba(0, 0, 0, 0.3);
+    padding: var(--card-padding);
 }
 
 .row {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 2vmin;
 }
 
 /* Base card styles */
-.card, .deck-card {
+.card, .deck-card, .card-stack {
     font-family: var(--font-base);
     width: var(--card-width);
     height: var(--card-height);
-    border-radius: var(--card-radius);
+    border-radius: var(--border-radius);
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: bold;
-    color: #f8f8ff;
     cursor: pointer;
+    touch-action: none;  /* Prevent browser zoom gestures */
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+    box-sizing: border-box;
+    padding: var(--card-padding);
+    box-shadow: 0 0 1vmin var(--card-shadow); 
 }
 
 .card {
     background-color: lightgray;
-    padding: 0 10px;
     font-size: 2vmin;
     user-select: none;
     transition: transform 0.2s ease-in-out;
@@ -96,13 +116,15 @@ body {
 
 /* Shared deck-specific styles */
 [data-deck="life"] {
-    background-color: var(--life-color);
-    border: 3px solid var(--life-border);
+    background-color: var(--life-card-bg);
+    color: var(--life-card-text);
+    border: none;
 }
 
 [data-deck="death"] {
-    background-color: var(--death-color);
-    border: 3px solid var(--death-border);
+    background-color: var(--death-card-bg);
+    color: var(--death-card-text);
+    border: none;
 }
 
 .card.disabled {
@@ -115,16 +137,16 @@ body {
     position: relative;
     height: 80%;
     width: 90%;
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 25px;
-    background-color: #8B4513;
+    margin: 5vmin auto;
+    padding: 5vmin;
+    background-color: var(--board-bg);
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 1vmin var(--card-shadow);
 }
 
 #hand {
     display: flex;
-    gap: 10px;
+    gap: 2vmin;
     justify-content: center;
 }
 
@@ -134,42 +156,51 @@ body {
 
 #decks {
     display: flex;
-    gap: 20px;
-    justify-content: center;
+    width: 100%;
+    padding: 5vmin, 2vmin;
+    box-sizing: border-box;
+    justify-content: space-between;
+    align-items: center;
 }
 
 #life-deck {
-    margin-right: auto;
-    margin-left: 25px;
+    margin: 0;
 }
 
 #death-deck {
-    margin-left: auto;
-    margin-right: 25px;
+    margin: 0;
 }
 
 .board-container {
-    height: 100%;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    padding: 20px;
-    max-width: 1200px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2vmin;
+    padding: 5vmin;
     margin: 0 auto;
     overflow-y: auto;
 }
 
 .card-stack {
     width: var(--card-width);
-    min-height: var(--card-height);
+    height: var(--card-height);
     position: relative;
     margin: 0 auto;
-    border: 2px dashed rgba(255, 255, 255, 0.1);
-    border-radius: 25px;
+    border: 0.5vmin dashed rgba(255, 255, 255, 0.2);
+    border-radius: 2.5vmin;
+    box-sizing: border-box;
+    padding: 0;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.card-stack:has(.card) {
+    background-color: transparent;
+    height: auto;
+    min-height: var(--card-height);
 }
 
 .card-stack.playable {
-    border: 2px solid var(--life-color);
+    border: 2px solid var(--life-card-bg);
+    box-shadow: 0 0 2vmin 0.5vmin var(--life-card-bg);  /* Increased shadow spread and added blur */
     cursor: pointer;
 }
 
@@ -183,6 +214,8 @@ body {
     left: 0;
     top: 0;
     transition: transform 0.3s ease-in-out;
+    width: 100%;
+    height: 100%;
 }
 
 .deck-card {
@@ -201,20 +234,13 @@ body {
 }
 
 .discard-pile {
-    width: var(--card-width);
-    height: var(--card-height);
-    border-radius: var(--card-radius);
-    background-color: #444;
-    margin: 0 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    transition: transform 0.2s ease-in-out;
+    border: 0.5vmin dashed rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 .discard-pile.active {
-    border: 2px solid var(--death-color);
+    border: 2px solid var(--death-card-bg);
+    box-shadow: 0 0 2vmin 0.5vmin var(--death-card-bg);
     cursor: pointer;
     transform: scale(1.1);
 }
@@ -222,7 +248,7 @@ body {
 .hand {
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    gap: 2vmin;
     justify-content: center;
     align-items: center;
 }

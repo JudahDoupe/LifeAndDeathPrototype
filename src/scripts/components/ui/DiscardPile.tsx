@@ -9,11 +9,11 @@ interface DiscardPileProps {
 const DiscardPile: React.FC<DiscardPileProps> = ({ isActive, onDiscard }) => {
   return (
     <div 
-      className={`discard-pile ${isActive ? 'active' : ''}`}
+      className={`card-stack discard-pile ${isActive ? 'active' : ''}`}
       onClick={isActive ? onDiscard : undefined}
       data-deck={DeckType.DEATH}
     >
-      Discard
+      Play
     </div>
   );
 };

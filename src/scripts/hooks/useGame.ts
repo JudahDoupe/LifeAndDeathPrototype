@@ -13,7 +13,7 @@ export function useGame() {
   const selectCard = (card: CardData) => {
     setGameState(prev => ({
       ...prev,
-      chosenCard: prev.chosenCard?.name === card.name ? null : card
+      chosenCard: prev.chosenCard?.id === card.id ? null : card
     }));
   };
 
@@ -52,7 +52,11 @@ export function useGame() {
 
     setGameState(prev => ({
       ...prev,
-      hand: [...prev.hand, { name: drawnCard.name, deck }],
+      hand: [...prev.hand, { 
+        name: drawnCard.name, 
+        deck,
+        id: `${drawnCard.name}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+      }],
       decks: {
         ...prev.decks,
         [deck]: prev.decks[deck].filter(card => card.name !== drawnCard.name)

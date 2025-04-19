@@ -18,20 +18,22 @@ const App: React.FC = () => {
             onStackClick={(stackIndex) => playCard(stackIndex)}
           />
         </div>
-        <div className="game-row decks-row">
-          <Decks decks={gameState.decks}>
-            <DiscardPile 
-              isActive={gameState.chosenCard?.deck === 'death'}
-              onDiscard={() => playCard()}
+        <div className="bottom-container">
+          <div className="game-row decks-row">
+            <Decks decks={gameState.decks}>
+              <DiscardPile 
+                isActive={gameState.chosenCard?.deck === 'death'}
+                onDiscard={() => playCard()}
+              />
+            </Decks>
+          </div>
+          <div className="game-row hand-row">
+            <Hand 
+              cards={gameState.hand}
+              onCardSelect={selectCard}
+              chosenCard={gameState.chosenCard}
             />
-          </Decks>
-        </div>
-        <div className="game-row hand-row">
-          <Hand 
-            cards={gameState.hand}
-            onCardSelect={selectCard}
-            chosenCard={gameState.chosenCard}
-          />
+          </div>
         </div>
       </div>
     </div>

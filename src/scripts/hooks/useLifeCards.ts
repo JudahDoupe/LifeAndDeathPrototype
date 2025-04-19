@@ -1,6 +1,6 @@
 import { ALLCARDS } from '../cards';
 import { CardData } from '../cards';
-import { GameState, DeckType } from '../types/game.types';
+import { GameState } from '../types/game.types';
 
 export function useLifeCards() {
   const canPlayLifeCard = (cardName: string, stackIndex: number, board: Array<Array<CardData>>): boolean => {
@@ -23,14 +23,18 @@ export function useLifeCards() {
   ): void => {
     if (!canPlayLifeCard(cardName, stackIndex, gameState.board)) return;
 
+    const chosenCard = gameState.chosenCard;
+    if (!chosenCard) return;
+
     onStateChange({
       ...gameState,
       board: gameState.board.map((stack, idx) => 
         idx === stackIndex 
-          ? [...stack, { name: cardName, deck: DeckType.LIFE }]
+          ? [...stack, chosenCard]
           : stack
       ),
-      hand: gameState.hand.filter(card => card.name !== cardName)
+      hand: gameState.hand.filter(card => card.id !== chosenCard.id),
+      chosenCard: null
     });
 
     onCardPlayed();

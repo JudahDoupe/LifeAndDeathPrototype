@@ -1,6 +1,11 @@
 import React from 'react';
-import { CardData, LifeCard } from '../../cards';
+import { CardData, ALLCARDS } from '../../cards';
 import PlayedCard from './PlayedCard';
+
+const getLifeCardRequirements = (card: CardData | null): string[] => {
+  if (!card || card.deck !== 'life') return [];
+  return ALLCARDS.life.find(c => c.name === card.name)?.requirements || [];
+};
 
 interface CardStackProps {
   stackIndex: number;
@@ -15,17 +20,17 @@ const CardStack: React.FC<CardStackProps> = ({
   chosenCard = null,
   onStackClick,
 }) => {
-  const topCard = React.useMemo(() => 
-    stackedCards && stackedCards.length > 0 ? stackedCards[stackedCards.length - 1] : null
-  , [stackedCards]);
+  const topCard = React.useMemo(() => {
+    if (!stackedCards || stackedCards.length === 0) return null;
+    return stackedCards[stackedCards.length - 1];
+  }, [stackedCards]);
 
   const isPlayable = React.useMemo(() => {
-    if (!chosenCard) return false;
-    const lifeCard = chosenCard as LifeCard;
-    if (!topCard) return lifeCard.requirements?.length === 0;
-    return lifeCard.requirements?.some(requiredCard => 
-      requiredCard.toLowerCase() === topCard.name.toLowerCase()
-    ) || false;
+    if (!chosenCard || chosenCard.deck !== 'life') return false;
+    const requirements = getLifeCardRequirements(chosenCard);
+    return !topCard ? 
+      requirements.length === 0 : 
+      requirements.includes(topCard.name);
   }, [chosenCard, topCard]);
 
   return (

@@ -11,12 +11,12 @@ interface HandProps {
 const Hand: React.FC<HandProps> = ({ cards, onCardSelect, chosenCard }) => {
   return (
     <div className="hand">
-      {cards.map((card, index) => (
+      {cards.map((card) => (
         <PlayableCard
-          key={`${card.name}-${index}`}
+          key={card.id}
           card={card}
           onPlay={() => onCardSelect(card)}
-          isChosen={chosenCard?.name === card.name}
+          isChosen={chosenCard?.id === card.id}
         />
       ))}
     </div>

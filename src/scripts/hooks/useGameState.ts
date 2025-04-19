@@ -1,15 +1,20 @@
 import { useState, useEffect } from 'react';
 import { ALLCARDS } from '../cards';
-import { GameState, DeckType } from '../types/game.types';
+import { GameState } from '../types/game.types';
 import { shuffleArray } from '../utils/array';
+
+const duplicateCardWithNewId = (card: any) => ({
+  ...card,
+  id: Math.random().toString(36).substr(2, 9)
+});
 
 export function useGameState() {
   const [gameState, setGameState] = useState<GameState>({
     board: [],
     hand: [],
     decks: {
-      life: [...ALLCARDS.life],
-      death: [...ALLCARDS.death]
+      life: [],
+      death: []
     },
     chosenCard: null
   });
@@ -19,17 +24,21 @@ export function useGameState() {
   }, []);
 
   const initializeGame = () => {
-    const shuffledLife = shuffleArray([...ALLCARDS.life]);
     setGameState({
-      board: Array(12).fill([]),
+      board: Array(9).fill([]),
       hand: [
-        { name: shuffledLife[0].name, deck: DeckType.LIFE },
-        { name: shuffledLife[1].name, deck: DeckType.LIFE },
-        { name: shuffledLife[2].name, deck: DeckType.LIFE }
+        ...ALLCARDS.life.slice(0, 4).map(duplicateCardWithNewId),
       ],
       decks: {
-        life: shuffledLife.slice(3),
-        death: [...ALLCARDS.death]
+        life: [
+          ...shuffleArray(ALLCARDS.life.slice(0, 6)).map(duplicateCardWithNewId),
+          ...shuffleArray(ALLCARDS.life).map(duplicateCardWithNewId),
+        ],
+        death: [
+          ...shuffleArray(ALLCARDS.death.slice(0, 2)).map(duplicateCardWithNewId),
+          ...shuffleArray(ALLCARDS.death.slice(0, 6)).map(duplicateCardWithNewId),
+          ...shuffleArray(ALLCARDS.death).map(duplicateCardWithNewId),
+        ]
       },
       chosenCard: null
     });
