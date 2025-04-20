@@ -47,7 +47,8 @@ export function useGame() {
     const currentDeck = [...gameState.decks[deck]];
     if (currentDeck.length === 0) return;
 
-    const drawnCard = shuffleArray(currentDeck)[0];
+    const shuffledDeck = shuffleArray(currentDeck);
+    const drawnCard = shuffledDeck[0];
     if (!drawnCard) return;
 
     setGameState(prev => ({
@@ -59,7 +60,7 @@ export function useGame() {
       }],
       decks: {
         ...prev.decks,
-        [deck]: prev.decks[deck].filter(card => card.name !== drawnCard.name)
+        [deck]: shuffleArray(prev.decks[deck].filter(card => card.name !== drawnCard.name))
       }
     }));
   };

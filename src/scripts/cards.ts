@@ -8,10 +8,14 @@ export interface CardData {
 
 export interface LifeCard extends CardData {
     requirements: string[];
+    phRange: {
+        min: number;
+        max: number;
+    };
 }
 
 export interface DeathCard extends CardData {
-    removes: string[];
+    phChange: number; // How much this card changes the board pH
 }
 
 export type AllCards = {
@@ -21,27 +25,27 @@ export type AllCards = {
 
 export const ALLCARDS: AllCards = {
     life: [
-        { name: 'Sand', requirements: [], deck: DeckType.LIFE },
-        { name: 'Clay', requirements: [], deck: DeckType.LIFE },
-        { name: 'Wheat', requirements: ['Sand'], deck: DeckType.LIFE },
-        { name: 'Turnips', requirements: ['Sand'], deck: DeckType.LIFE },
-        { name: 'Tomatoes', requirements: ['Clay'], deck: DeckType.LIFE },
-        { name: 'Pumpkins', requirements: ['Clay'], deck: DeckType.LIFE },
-        { name: 'Deer', requirements: ['Wheat'], deck: DeckType.LIFE },
-        { name: 'Bear', requirements: ['Pumpkins'], deck: DeckType.LIFE },
-        { name: 'Rabbit', requirements: ['Wheat'], deck: DeckType.LIFE },
-        { name: 'Butterflies', requirements: ['Tomatoes'], deck: DeckType.LIFE },
+        ...[...Array(4)].map(() => ({ name: 'Moss', requirements: [], phRange: { min: 6, max: 7 }, deck: DeckType.LIFE })),
+        ...[...Array(4)].map(() => ({ name: 'Algea', requirements: [], phRange: { min: 6, max: 8 }, deck: DeckType.LIFE })),
+        ...[...Array(4)].map(() => ({ name: 'Duckweed', requirements: [], phRange: { min: 7, max: 8 }, deck: DeckType.LIFE })),
+        ...[...Array(3)].map(() => ({ name: 'Protozoa', requirements: ['Algea', 'Bacteria'], phRange: { min: 6, max: 7 }, deck: DeckType.LIFE })),
+        ...[...Array(3)].map(() => ({ name: 'Bacteria', requirements: ['Algea', 'Moss', 'Duckweed'], phRange: { min: 6, max: 8 }, deck: DeckType.LIFE })),
+        ...[...Array(3)].map(() => ({ name: 'Fungi', requirements: ['Algea', 'Duckweed'], phRange: { min: 7, max: 8 }, deck: DeckType.LIFE })),
+        ...[...Array(2)].map(() => ({ name: 'Beetle', requirements: ['Protozoa'], phRange: { min: 6, max: 7 }, deck: DeckType.LIFE })),
+        ...[...Array(2)].map(() => ({ name: 'Fly', requirements: ['Protozoa', 'Fungi'], phRange: { min: 6, max: 8 }, deck: DeckType.LIFE })),
+        ...[...Array(2)].map(() => ({ name: 'Snails', requirements: ['Fungi'], phRange: { min: 7, max: 8 }, deck: DeckType.LIFE })),
+        { name: 'Pitcher Plant', requirements: ['Fly', 'Beetle'], phRange: { min: 6, max: 7 }, deck: DeckType.LIFE },
+        { name: 'Frogs', requirements: ['Fly', 'Snails', 'Beetle'], phRange: { min: 6, max: 8 }, deck: DeckType.LIFE },
+        { name: 'Slamanders', requirements: ['Fly', 'Snails', 'Beetle'], phRange: { min: 7, max: 8 }, deck: DeckType.LIFE }
     ],
     death: [
-        { name: 'Rain', removes: ['Sand'], deck: DeckType.DEATH },   
-        { name: 'Sun', removes: ['Clay'], deck: DeckType.DEATH },
-        { name: 'Storm', removes: ['Sand', 'Wheat'], deck: DeckType.DEATH },
-        { name: 'Snow', removes: ['Clay', 'Pumpkins'], deck: DeckType.DEATH },
-        { name: 'Wind', removes: ['Sand', 'Turnips'], deck: DeckType.DEATH },
-        { name: 'Frost', removes: ['Clay', 'Tomatoes'], deck: DeckType.DEATH },
-        { name: 'Flood', removes: ['Sand', 'Deer', 'Wheat'], deck: DeckType.DEATH },
-        { name: 'Blizzard', removes: ['Sand', 'Tomatoes', 'Turnips'], deck: DeckType.DEATH },
-        { name: 'Fire', removes: ['Clay', 'Rabbit', 'Wheat', 'Pumpkins', 'Butterflies'], deck: DeckType.DEATH },
-        { name: 'Ice', removes: ['Clay', 'Tomatoes', 'Turnips'], deck: DeckType.DEATH },
+        ...[...Array(8)].map(() => ({ name: 'Decay', phChange: -0.25, deck: DeckType.DEATH })),
+        ...[...Array(8)].map(() => ({ name: 'Photosynthesis', phChange: 0.25, deck: DeckType.DEATH })),
+        ...[...Array(4)].map(() => ({ name: 'Rain', phChange: -0.5, deck: DeckType.DEATH })),
+        ...[...Array(4)].map(() => ({ name: 'Cold Front', phChange: 0.5, deck: DeckType.DEATH })),
+        ...[...Array(2)].map(() => ({ name: 'Storm', phChange: -0.75, deck: DeckType.DEATH })),
+        ...[...Array(2)].map(() => ({ name: 'Decay 2', phChange: 0.75, deck: DeckType.DEATH })),
+        { name: 'Acid Rain', phChange: -1, deck: DeckType.DEATH },
+        { name: 'Farm Runoff', phChange: 1, deck: DeckType.DEATH },
     ],
 };

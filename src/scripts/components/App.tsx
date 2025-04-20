@@ -16,6 +16,7 @@ const App: React.FC = () => {
             board={gameState.board}
             chosenCard={gameState.chosenCard}
             onStackClick={(stackIndex) => playCard(stackIndex)}
+            boardPh={gameState.boardPh}
           />
         </div>
         <div className="bottom-container">

@@ -8,7 +8,10 @@ export enum DeckType {
 /** Game-specific constants */
 export const Constants = {
     LIFE_DECK: DeckType.LIFE,
-    DEATH_DECK: DeckType.DEATH
+    DEATH_DECK: DeckType.DEATH,
+    INITIAL_PH: 7.0, // Neutral pH
+    MIN_PH: 0,
+    MAX_PH: 14
 } as const;
 
 /** The complete game state */
@@ -20,4 +23,5 @@ export interface GameState {
         death: DeathCard[];
     };
     chosenCard: CardData | null;
+    boardPh: number; // Track the board's pH level
 }

@@ -1,6 +1,6 @@
 :root {
-    --card-height: 15vmin;
-    --card-width: 11vmin;
+    --card-height: 15vh;
+    --card-width: 11vh;
     --card-radius: var(--border-radius);
     --font-base: 'Arial', 'Helvetica', sans-serif;
 
@@ -16,11 +16,11 @@
 
     /* Shadows and Accents */
     --card-shadow: rgba(0, 0, 0, 0.2);
-    --border-radius: 1.5vmin;
-    --card-padding: 1rem;
+    --border-radius: 1.5vh;
+    --card-padding: 1vh;
 }
 
-#root{
+#root {
     height: 100vh;
 }
 
@@ -67,7 +67,7 @@ body {
     background: var(--board-bg);
     opacity: 0.95;
     z-index: 100;
-    box-shadow: 0 0 1vmin var(--card-shadow);
+    box-shadow: 0 0 1vh var(--card-shadow);
 }
 
 .decks-row {
@@ -81,7 +81,7 @@ body {
 .row {
     display: flex;
     justify-content: center;
-    gap: 2vmin;
+    gap: 2vh;
 }
 
 /* Base card styles */
@@ -99,14 +99,38 @@ body {
     -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
     box-sizing: border-box;
     padding: var(--card-padding);
-    box-shadow: 0 0 1vmin var(--card-shadow); 
+    box-shadow: 0 0 1vh var(--card-shadow); 
 }
 
 .card {
     background-color: lightgray;
-    font-size: 2vmin;
+    font-size: 2vh;
     user-select: none;
     transition: transform 0.2s ease-in-out;
+    padding: 0.5vh;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+
+.card-name {
+    font-size: 1.8vh;
+    margin-top: 1vh;
+}
+
+.card-ph {
+    font-size: 1.5vh;
+    margin-bottom: 1vh;
+    padding: 0.5vh;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 0.8vh;
 }
 
 .card.chosen {
@@ -137,16 +161,16 @@ body {
     position: relative;
     height: 80%;
     width: 90%;
-    margin: 5vmin auto;
-    padding: 5vmin;
+    margin: 5vh auto;
+    padding: 5vh;
     background-color: var(--board-bg);
     border-radius: var(--border-radius);
-    box-shadow: 0 0 1vmin var(--card-shadow);
+    box-shadow: 0 0 1vh var(--card-shadow);
 }
 
 #hand {
     display: flex;
-    gap: 2vmin;
+    gap: 2vh;
     justify-content: center;
 }
 
@@ -157,7 +181,7 @@ body {
 #decks {
     display: flex;
     width: 100%;
-    padding: 5vmin, 2vmin;
+    padding: 5vh, 2vh;
     box-sizing: border-box;
     justify-content: space-between;
     align-items: center;
@@ -174,8 +198,8 @@ body {
 .board-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2vmin;
-    padding: 5vmin;
+    gap: 2vh;
+    padding: 5vh;
     margin: 0 auto;
     overflow-y: auto;
 }
@@ -185,8 +209,8 @@ body {
     height: var(--card-height);
     position: relative;
     margin: 0 auto;
-    border: 0.5vmin dashed rgba(255, 255, 255, 0.2);
-    border-radius: 2.5vmin;
+    border: 0.5vh dashed rgba(255, 255, 255, 0.2);
+    border-radius: 2.5vh;
     box-sizing: border-box;
     padding: 0;
     background-color: rgba(255, 255, 255, 0.05);
@@ -200,7 +224,7 @@ body {
 
 .card-stack.playable {
     border: 2px solid var(--life-card-bg);
-    box-shadow: 0 0 2vmin 0.5vmin var(--life-card-bg);  /* Increased shadow spread and added blur */
+    box-shadow: 0 0 2vh 0.5vh var(--life-card-bg);  /* Increased shadow spread and added blur */
     cursor: pointer;
 }
 
@@ -219,7 +243,7 @@ body {
 }
 
 .deck-card {
-    font-size: 2vmin;
+    font-size: 2vh;
     position: relative;
 }
 
@@ -228,19 +252,19 @@ body {
     bottom: 50%;
     left: 50%;
     transform: translate(-50%, 50%);
-    font-size: 4vmin;
+    font-size: 4vh;
     font-weight: bold;
     text-align: center;
 }
 
 .discard-pile {
-    border: 0.5vmin dashed rgba(255, 255, 255, 0.2);
+    border: 0.5vh dashed rgba(255, 255, 255, 0.2);
     background-color: rgba(255, 255, 255, 0.05);
 }
 
 .discard-pile.active {
     border: 2px solid var(--death-card-bg);
-    box-shadow: 0 0 2vmin 0.5vmin var(--death-card-bg);
+    box-shadow: 0 0 2vh 0.5vh var(--death-card-bg);
     cursor: pointer;
     transform: scale(1.1);
 }
@@ -248,7 +272,22 @@ body {
 .hand {
     display: flex;
     flex-direction: row;
-    gap: 2vmin;
+    gap: 2vh;
     justify-content: center;
     align-items: center;
+}
+
+.ph-meter {
+    position: absolute;
+    top: 2vh;
+    right: 2vh;
+    padding: 1vh 2vh;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: var(--border-radius);
+    color: var(--board-bg);
+    font-family: var(--font-base);
+    font-weight: bold;
+    font-size: 2vh;
+    box-shadow: 0 0 1vh var(--card-shadow);
+    z-index: 100;
 }

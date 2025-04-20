@@ -1,0 +1,15 @@
+.board-area {
+  height: 60vh;
+  overflow-y: auto;
+}
+
+.board-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1vh;
+  padding: 1vh;
+}
+
+.bottom-area {
+  height: 40vh;
+}

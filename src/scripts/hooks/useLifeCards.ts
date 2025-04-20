@@ -11,7 +11,8 @@ export function useLifeCards() {
     if (stack.length === 0) return card.requirements.length === 0;
     
     const topCard = stack[stack.length - 1];
-    return card.requirements.includes(topCard.name);
+    // Check if the top card matches any of the requirements
+    return card.requirements.length === 0 || card.requirements.some(req => req === topCard.name);
   };
 
   const playLifeCard = (

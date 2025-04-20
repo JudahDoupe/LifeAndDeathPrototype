@@ -1,5 +1,5 @@
 import React from 'react';
-import { CardData } from '../../cards';
+import { CardData, ALLCARDS } from '../../cards';
 
 interface PlayableCardProps {
   card: CardData;
@@ -14,8 +14,21 @@ const PlayableCard: React.FC<PlayableCardProps> = ({
   isPlayable = true,
   isChosen = false 
 }) => {
-
-//TODO: disable the card if there are no stacks that the card can be played on
+  const getPhInfo = () => {
+    if (card.deck === 'life') {
+      const lifeCard = ALLCARDS.life.find(c => c.name === card.name);
+      if (lifeCard) {
+        return `pH ${lifeCard.phRange.min}-${lifeCard.phRange.max}`;
+      }
+    } else if (card.deck === 'death') {
+      const deathCard = ALLCARDS.death.find(c => c.name === card.name);
+      if (deathCard) {
+        const sign = deathCard.phChange >= 0 ? '+' : '';
+        return `pH ${sign}${deathCard.phChange}`;
+      }
+    }
+    return '';
+  };
 
   return (
     <div
@@ -23,7 +36,10 @@ const PlayableCard: React.FC<PlayableCardProps> = ({
       onClick={!isPlayable ? undefined : onPlay}
       data-deck={card.deck}
     >
-      {card.name}
+      <div className="card-content">
+        <div className="card-name">{card.name}</div>
+        <div className="card-ph">{getPhInfo()}</div>
+      </div>
     </div>
   );
 };

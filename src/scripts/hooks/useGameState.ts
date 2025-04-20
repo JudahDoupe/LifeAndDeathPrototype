@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ALLCARDS } from '../cards';
-import { GameState } from '../types/game.types';
+import { GameState, Constants } from '../types/game.types';
 import { shuffleArray } from '../utils/array';
 
 const duplicateCardWithNewId = (card: any) => ({
@@ -16,32 +16,45 @@ export function useGameState() {
       life: [],
       death: []
     },
-    chosenCard: null
+    chosenCard: null,
+    boardPh: Constants.INITIAL_PH
   });
 
   useEffect(() => {
     initializeGame();
   }, []);
 
-  const initializeGame = () => {
-    setGameState({
-      board: Array(9).fill([]),
-      hand: [
-        ...ALLCARDS.life.slice(0, 4).map(duplicateCardWithNewId),
-      ],
+  const drawInitialCards = (state: GameState): GameState => {
+    // Draw 3 life cards and 2 death cards
+    const lifeCards = state.decks.life.slice(0, 3);
+    const deathCards = state.decks.death.slice(0, 2);
+    
+    return {
+      ...state,
+      hand: [...lifeCards, ...deathCards].map(duplicateCardWithNewId),
       decks: {
-        life: [
-          ...shuffleArray(ALLCARDS.life.slice(0, 6)).map(duplicateCardWithNewId),
-          ...shuffleArray(ALLCARDS.life).map(duplicateCardWithNewId),
-        ],
-        death: [
-          ...shuffleArray(ALLCARDS.death.slice(0, 2)).map(duplicateCardWithNewId),
-          ...shuffleArray(ALLCARDS.death.slice(0, 6)).map(duplicateCardWithNewId),
-          ...shuffleArray(ALLCARDS.death).map(duplicateCardWithNewId),
-        ]
+        life: state.decks.life.slice(3),
+        death: state.decks.death.slice(2)
+      }
+    };
+  };
+
+  const initializeGame = () => {
+    // Create initial state with shuffled decks
+    const initialState: GameState = {
+      board: Array(9).fill([]),
+      hand: [],
+      decks: {
+        life: shuffleArray(ALLCARDS.life).map(duplicateCardWithNewId),
+        death: shuffleArray(ALLCARDS.death).map(duplicateCardWithNewId)
       },
-      chosenCard: null
-    });
+      chosenCard: null,
+      boardPh: Constants.INITIAL_PH
+    };
+
+    // Draw initial cards and set state
+    const stateWithCards = drawInitialCards(initialState);
+    setGameState(stateWithCards);
   };
 
   return {
